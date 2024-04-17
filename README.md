@@ -8,4 +8,6 @@ This repository hosts an R script for conducting Windowed-Lagged Cross-Correlati
 ## Stuff that I am fixing
 - The script is still hard to customize. I am working on making it more accessible and easy to tailor
 - Trial-by-trial analysis is still quite a mess. The script unnecessarily saves several data files for each trial, which is a problem with a large number of trials 
-- Still need to implement the section for Facial Synchrony - estimated with OpenFace output 
+- Still need to implement the section for Facial Synchrony - estimated with OpenFace output
+
+When I have time, I want to absolutely move this script on Python. Any advice appreciated! 
