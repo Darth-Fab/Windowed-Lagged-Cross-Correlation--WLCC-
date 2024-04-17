@@ -1,0 +1,23 @@
+# Git ignore for PhysioData Toolbox project.
+
+# R historyfiles:
+*.Ristory
+
+# Ignore data in data folder:
+data/
+
+# Ignore old scripts in old script folder:
+old_scripts/
+
+# Ignore data in _untracked or _ignore folders:
+*_untracked/
+*_ignore/
+
+# Ignore files that end with _ignore:
+*_ignore.*
+
+# Ignore Word autosave files:
+~$*
+
+# Ignore Windows thumbnails:
+Thumbs.db
