@@ -17,11 +17,19 @@ options(scipen = 999) # forces R to convert scientific notations to decimals
 setwd('C:/Users/fabio/Documents/GitHub/WCC/Analysis_FBehrens_et_al/data_pd')
 
 #d_raw <- read.csv(file= 'WCC_alldyads_withexcl.csv')
-d_raw <- read.csv(file= 'ecg_pd_cond_trial_withexcl_wrongnames.csv')
+d_raw <- read.csv(file= 'VIDI_Dyadic_IHR_over time.csv', sep=";")
 unique(d_raw$Condition)
+colnames(d_raw)
 d_raw$FaceCondition <- ifelse(d_raw$Condition == "Face-to-Face", 1, 0)
 
+d_raw <- d_raw %>% 
+  rename(
+    Dyad = ï..Dyad, 
+    ECG_PPN1_HeartRate = PPN1_IHR, 
+    ECG_PPN2_HeartRate= PPN2_IHR
+  )
 
+d_raw$Excl_HR <- 0
 ############### FUNCTIONS ####################
 
 
@@ -381,12 +389,10 @@ faceSClist <- vector("list", numdyad)
 nofaceSClist <- vector("list", numdyad)
 
 
-
 faceHRmatrix <- matrix(NA, nrow = 160000, ncol = ncol(d_raw))
 nofaceHRmatrix <- matrix(NA, nrow = 160000, ncol = ncol(d_raw))
 faceSCmatrix <- matrix(NA, nrow = 160000, ncol = ncol(d_raw))
 nofaceSCmatrix <- matrix(NA, nrow = 160000, ncol = ncol(d_raw))
-
 
 
 # this is not working - take from d_raw instead of d (at least values in table then)
@@ -520,6 +526,8 @@ save("NoFacePeakList_SC", file = paste("SC_PeakList_NoFace_W", wSize, "_Incr", w
 
 # Heart Rate -------
 
+numdyadWCC <- length(unique(d_raw$Dyad)) # NOTE: gave 0 wit d$dyad, therefore d adjusted to d$Dyad
+
 FaceWCCList_HR<-vector("list", numdyadWCC)
 FacePeakList_HR<-vector("list", numdyadWCC)
 
@@ -533,10 +541,8 @@ wInc <- 20*2 # 2 sec
 tInc <- 2 # 100 ms
 LoessSpan <- 0.25
 L <- 25
-SamplingRate <- 10 # Hz
+SamplingRate <- 20 # Hz
 
-
-numdyadWCC <- length(unique(d_raw$Dyad)) # NOTE: gave 0 wit d$dyad, therefore d adjusted to d$Dyad
 
 col1<-colorRampPalette(viridis(100)) 
 pb <- txtProgressBar(min = 0, max = numdyadWCC, style = 3)
