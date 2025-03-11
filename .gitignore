@@ -2,6 +2,11 @@
 
 # R historyfiles:
 *.Ristory
+*.RData
+*.csv
+*.pdf
+*.eps
+*
 
 # Ignore data in data folder:
 data/
